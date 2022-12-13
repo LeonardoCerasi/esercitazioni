@@ -55,24 +55,24 @@ void set_points(point points[], int n)
     }
 }
 
-// Get methods
+// Print methods
 
-void get_point(point P)
+void print_point(point P)
 {
     std::cout << "(" << P.x << "," << P.y << ")";
 }
 
-void get_circle(circle C)
+void print_circle(circle C)
 {
-    get_point(C.center);
+    print_point(C.center);
     std::cout << "\nr: " << C.radius << std::endl;
 }
 
-void get_points(point points[], int dim)
+void print_points(point points[], int dim)
 {
     for (int i = 0; i < dim; i++)
     {
-        get_point(points[i]);
+        print_point(points[i]);
         std::cout << std::endl;
     }
 }

@@ -18,7 +18,7 @@ int main()
     {
         if(in_circle(points[i], C))
         {
-            get_point(points[i]);
+            print_point(points[i]);
             std::cout << std::endl;
         }
     }
@@ -34,9 +34,9 @@ int main()
         {
             if (dist(points[i], points[j]) == distance && in_circle(points[i], C) && in_circle(points[j]))
             {
-                get_point(points[i]);
+                print_point(points[i]);
                 std::cout << " - ";
-                get_point(points[j]);
+                print_point(points[j]);
                 std::cout << std::endl;
             }
         }
