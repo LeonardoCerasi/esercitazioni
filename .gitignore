@@ -2,3 +2,7 @@
 *.log
 *.txt
 *.obj
+*.o
+*.in
+*.out
+*.dat
