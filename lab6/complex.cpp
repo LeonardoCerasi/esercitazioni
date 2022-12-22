@@ -1,89 +1,71 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-
 #include "complex.h"
-#include "func.h"
 
-int main()
+// Set methods
+
+void set_complex(complex &z)
 {
-    int dim = lines("input.txt");
+    std::cout << "Insert real and imaginary part of a complex number" << std::endl;
+    std::cout << "Real: ";
+    std::cin >> z.real;
+    std::cout << "Imaginary: ";
+    std::cin >> z.imag;
+    std::cout << "\n"
+              << std::endl;
+}
 
-    if (dim == -1)
+// Print methods
+
+void print_complex(complex z)
+{
+    std::cout << z.real;
+    if (z.imag < 0)
     {
-        return -1;
+        std::cout << z.imag << "i";
     }
-
-    std::ifstream input;
-    input.open("input.txt");
-
-    std::ofstream output;
-    output.open("output.txt");
-
-    complex* numbers = new complex[dim];
-
-    for (int i = 0; i < dim; i++)
+    else if (z.imag > 0)
     {
-        input >> numbers[i].real;
-        input >> numbers[i].imag;
+        std::cout << "+" << z.imag << "i";
     }
+}
 
-    output << "Conjugate of numbers with modulus greater than 3:\n";
+void print_to_file(std::ofstream &output, complex z)
+{
+    output << z.real << " " << z.imag;
+}
 
-    for (int i = 0; i < dim; i++)
-    {
-        if (modulus(numbers[i]) > 3)
-        {
-            print_to_file(output, numbers[i]);
+// Mathematical methods
 
-            output << "\n";
-        }
-    }
+complex sum(complex z, complex w)
+{
+    complex sum;
 
-    output << "\n\nSum of all numbers with negative real part:\n";
+    sum.real = z.real + w.real;
+    sum.imag = z.imag + w.imag;
 
-    complex z;
+    return sum;
+}
 
-    for (int i = 0; i < dim; i++)
-    {
-        if (numbers[i].real < 0)
-        {
-            z = sum(numbers[i], z);
-        }
-    }
+complex product(complex z, complex w)
+{
+    complex product;
 
-    print_to_file(output, z);
+    product.real = (z.real * w.real) - (z.imag * w.imag);
+    product.imag = (z.real * w.imag) + (z.imag * w.real);
 
-    output << "\n\nProduct of first three numbers:\n";
+    return product;
+}
 
-    complex w = product(product(numbers[0], numbers[1]), numbers[2]);
+complex conjugate(complex z)
+{
+    complex conjugate;
 
-    print_to_file(output, w);
+    conjugate.real = z.real;
+    conjugate.imag = -z.imag;
 
-    int select = selection(numbers, dim);
+    return conjugate;
+}
 
-    sort(numbers, select + 1);
-
-    output << "\n\nFirst three numbers after selecting and sorting:\n";
-
-    for (int i = 0; i < 3; i++)
-    {
-        print_to_file(output, numbers[i]);
-
-        output << "\n";
-    }
-
-    output << "\n\nLast three numbers after selecting and sorting:\n";
-
-    for (int i = 0; i < 3; i++)
-    {
-        print_to_file(output, numbers[select - i]);
-
-        output << "\n";
-    }
-
-    input.close();
-    output.close();
-
-    return 0;
+float modulus(complex z)
+{
+    return sqrt(pow(z.real, 2) + pow(z.imag, 2));
 }

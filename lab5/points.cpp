@@ -14,13 +14,10 @@ int main()
 
     std::cout << "Of all the points you inserted, the following lie within the circle you inserted:" << std::endl;
 
-    for (int i = 0; i < dim; i++)
+    for (int i = 0; i < dim && (in_circle(points[i], C)); i++)
     {
-        if(in_circle(points[i], C))
-        {
-            print_point(points[i]);
-            std::cout << std::endl;
-        }
+        print_point(points[i]);
+        std::cout << std::endl;
     }
 
     float distance = max_dist(points, dim, C);
@@ -30,15 +27,12 @@ int main()
 
     for (int i = 0; i < dim - 1; i++)
     {
-        for (int j = i + 1; j < dim; j++)
+        for (int j = i + 1; j < dim && (dist(points[i], points[j]) == distance && in_circle(points[i], C) && in_circle(points[j], C)); j++)
         {
-            if (dist(points[i], points[j]) == distance && in_circle(points[i], C) && in_circle(points[j]))
-            {
-                print_point(points[i]);
-                std::cout << " - ";
-                print_point(points[j]);
-                std::cout << std::endl;
-            }
+            print_point(points[i]);
+            std::cout << " - ";
+            print_point(points[j]);
+            std::cout << std::endl;
         }
     }
 
